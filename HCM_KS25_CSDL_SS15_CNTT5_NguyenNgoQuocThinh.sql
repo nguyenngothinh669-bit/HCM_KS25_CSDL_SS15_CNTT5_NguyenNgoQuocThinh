@@ -1,20 +1,17 @@
 CREATE DATABASE IF NOT EXISTS StudentManagement;
 USE StudentManagement;
 
--- 2. Xóa các bảng cũ nếu đã tồn tại theo đúng thứ tự ràng buộc khóa ngoại
 DROP TABLE IF EXISTS grade_log;
 DROP TABLE IF EXISTS grades;
 DROP TABLE IF EXISTS subjects;
 DROP TABLE IF EXISTS students;
 
--- 3. Tạo bảng students (Thông tin sinh viên)
 CREATE TABLE students (
     student_id VARCHAR(5) PRIMARY KEY,
     full_name VARCHAR(50) NOT NULL,
     total_debt DECIMAL(10,2) DEFAULT 0.00
 );
 
--- 4. Tạo bảng subjects (Môn học)
 CREATE TABLE subjects (
     subject_id VARCHAR(5) PRIMARY KEY,
     subject_name VARCHAR(50) NOT NULL,
@@ -22,7 +19,6 @@ CREATE TABLE subjects (
     CONSTRAINT chk_credits CHECK (credits > 0)
 );
 
--- 5. Tạo bảng grades (Điểm số)
 CREATE TABLE grades (
     student_id VARCHAR(5),
     subject_id VARCHAR(5),
@@ -33,7 +29,6 @@ CREATE TABLE grades (
     CONSTRAINT chk_score CHECK (score BETWEEN 0 AND 10)
 );
 
--- 6. Tạo bảng grade_log (Lịch sử sửa điểm)
 CREATE TABLE grade_log (
     log_id INT PRIMARY KEY AUTO_INCREMENT,
     student_id VARCHAR(5),
